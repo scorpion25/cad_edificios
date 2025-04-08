@@ -95,26 +95,27 @@
 
     <script>
         const botoes = document.querySelectorAll('.nav-button:not(.logout-button)'); // Exclui o botão de logout
-
+    
         botoes.forEach(botao => {
             botao.addEventListener('click', () => {
                 let destino = '';
                 if (botao.classList.contains('cadastrar-usuario')) {
-                    destino = 'http://127.0.0.1:8000/auth/cadastro/';
+                    destino = '/auth/cadastro/';
                 } else if (botao.classList.contains('login')) {
-                    destino = 'http://127.0.0.1:8000/auth/login/';
+                    destino = '/auth/login/';
                 } else if (botao.classList.contains('pesquisar')) {
-                    destino = 'http://127.0.0.1:8000/pesquisa/';
+                    destino = '/pesquisa/';
                 } else if (botao.classList.contains('cadastro-edificio')) {
-                    destino = 'http://127.0.0.1:8000/';
+                    destino = '/';
                 } else if (botao.classList.contains('lista')) {
-                    destino = 'http://127.0.0.1:8000/edificios/';
+                    destino = '/edificios/';
                 } else if (botao.classList.contains('area-adm1')) {
-                    destino = 'http://127.0.0.1:8000/admin/';
+                    destino = '/admin/';
                 }
                 window.location.href = destino;
             });
         });
     </script>
+    
 </body>
 </html>
