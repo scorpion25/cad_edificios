@@ -1,0 +1,50 @@
+{% extends 'edificios/base.html' %}
+{% block conteudo %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-4">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold">Resultados da Busca</a>
+        <form class="d-flex" method="post" action="{% url 'pesquisa' %}">
+            {% csrf_token %}
+            <input class="form-control me-2" type="search" name="search" placeholder="Digite o nome" aria-label="Pesquisar">
+            <button class="btn btn-outline-success" type="submit">Pesquisar</button>
+        </form>
+    </div>
+</nav>
+
+{% if resultados %}
+    <div class="container mt-3">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-hover shadow-sm">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Tipo de Conexão</th>
+                        <th>Saturado?</th>
+                        <th>FAC</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for edificio in resultados %}
+                    <tr>
+                        <td>{{ edificio.id_edificio }}</td>
+                        <td>{{ edificio.nome }}</td>
+                        <td>{{ edificio.tipo }}</td>
+                        <td>{{ edificio.saturado }}</td>
+                        <td>{{ edificio.fac }}</td>
+                    </tr>
+                    {% empty %}
+                        <tr><td colspan="5" class="text-center">Nenhum resultado encontrado para a sua busca.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% else %}
+    <div class="container mt-3">
+        <p class="lead text-muted">Nenhum resultado encontrado para a sua busca.</p>
+    </div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'edificios/base.html' %}
+{% block conteudo %}
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Cadastro de Edifícios</h1>
+        <form action="{% url 'listagem_edificios' %}" method="post" class="shadow-lg p-4 rounded">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="nome" class="form-label small fw-bold">Nome</label>
+                <input type="text" class="form-control form-control-sm" id="nome" name="nome" placeholder="Digite o nome do edifício">
+            </div>
+            <div class="mb-3">
+                <label for="tipo" class="form-label small fw-bold">Tipo de Conexão</label>
+                <input type="text" class="form-control form-control-sm" id="tipo" name="tipo" placeholder="Ex: Fibra, Cobre, etc.">
+            </div>
+            <div class="mb-3">
+                <label for="saturado" class="form-label small fw-bold">Saturado?</label>
+                <select class="form-select form-select-sm" id="saturado" name="saturado">
+                    <option value="" selected>Selecione</option>
+                    <option value="Sim">Sim</option>
+                    <option value="Não">Não</option>
+                </select>
+                <small class="form-text text-muted">Indique se a conexão está saturada.</small>
+            </div>
+            <div class="mb-3">
+                <label for="fac" class="form-label small fw-bold">FAC (Código)</label>
+                <input type="text" class="form-control form-control-sm" id="fac" name="fac" placeholder="Digite o código FAC">
+            </div>
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-sm">Enviar</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

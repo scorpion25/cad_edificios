@@ -1,0 +1,40 @@
+{% extends 'edificios/base.html' %}
+{% block conteudo %}
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Edifícios Cadastrados</h1>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-hover shadow-sm">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Tipo de Conexão</th>
+                        <th>Saturado?</th>
+                        <th>FAC</th>
+                        <th>Ações</th> </tr>
+                </thead>
+                <tbody>
+                    {% for edificio in edificios %}
+                    <tr>
+                        <td>{{ edificio.id_edificio }}</td>
+                        <td>{{ edificio.nome }}</td>
+                        <td>{{ edificio.tipo }}</td>
+                        <td>{{ edificio.saturado }}</td>
+                        <td>{{ edificio.fac }}</td>
+                        <td>
+                            <form method="post" action="{% url 'apagar_edificio' id_edificio=edificio.id_edificio %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja apagar este edifício?')">
+                                    Excluir
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% empty %}
+                        <tr><td colspan="6" class="text-center">Nenhum edifício cadastrado.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
