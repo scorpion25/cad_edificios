@@ -5,6 +5,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import logout
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
+from .models import Mensagem
+
 
 def never_cache_view(view_func):
     return never_cache(view_func)
@@ -86,3 +88,31 @@ def apagar_edificio(request, id_edificio):
 def listar_edificios(request):
     edificios = Edificio.objects.all()
     return render(request, 'edificios/lista_edificios.html', {'edificios': edificios})
+
+@login_required
+def chat_usuario(request):
+    if request.method == 'POST':
+        texto = request.POST.get('mensagem')
+        if texto:
+            Mensagem.objects.create(usuario=request.user, texto=texto)
+            return redirect('chat_usuario')
+    return render(request, 'chat/chat_usuario.html')
+
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
+def chat_admin(request):
+    mensagens = Mensagem.objects.all().order_by('-data_envio')
+    return render(request, 'chat/chat_admin.html', {'mensagens': mensagens})
+
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
+def excluir_mensagem(request, mensagem_id):
+    mensagem = get_object_or_404(Mensagem, id=mensagem_id)
+    mensagem.delete()
+    return redirect('chat_admin')
+
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
+def chat_admin(request):
+    mensagens = Mensagem.objects.all().order_by('-data_envio')
+    return render(request, 'chat/chat_admin.html', {'mensagens': mensagens})

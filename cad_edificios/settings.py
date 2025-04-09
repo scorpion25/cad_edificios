@@ -25,7 +25,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'chave-padrão-secreta-para-dev')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']  # Ou coloque o domínio do Render depois
 

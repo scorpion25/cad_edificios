@@ -1,0 +1,11 @@
+{% extends 'edificios/base.html' %}
+{% block conteudo %}
+<div class="container mt-4">{% csrf_token %}
+    <h3>Enviar uma mensagem para a administração</h3>
+    <form method="post">
+        {% csrf_token %}
+        <textarea name="mensagem" class="form-control" rows="4" required></textarea>
+        <button class="btn btn-primary mt-2">Enviar</button>
+    </form>
+</div>
+{% endblock %}

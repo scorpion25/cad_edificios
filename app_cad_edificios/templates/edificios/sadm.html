@@ -30,34 +30,20 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            gap: 0.5rem;
             padding: 0.75rem 1.5rem;
             border-radius: 0.375rem;
             font-weight: 600;
             color: white;
-            background-color: #3b82f6;
+            text-decoration: none;
             transition: background-color 0.3s ease;
             cursor: pointer;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            border: none;
             font-size: 1rem;
             white-space: nowrap;
         }
-        .nav-button:hover {
-            background-color: #2563eb;
-        }
-
-        /* Estilos para telas menores (mobile) */
-        @media (max-width: 768px) {
-            .button-group {
-                gap: 12px;
-            }
-            .nav-button {
-                font-size: 0.8rem;
-                padding: 0.5rem 1rem;
-            }
-        }
-
-        /* Estilos específicos para cada botão (opcional, para cores diferentes) */
+        .chat-adm { background-color: #6a1b9a; }
+        .chat-adm:hover { background-color: #4a148c; }
         .cadastrar-usuario { background-color: #4caf50; }
         .cadastrar-usuario:hover { background-color: #45a049; }
         .login { background-color: #2196f3; }
@@ -72,50 +58,43 @@
         .area-adm1:hover { background-color: #d32f2f; }
         .logout-button { background-color: #6c757d; }
         .logout-button:hover { background-color: #5a6268; }
+
+        @media (max-width: 768px) {
+            .button-group {
+                gap: 12px;
+            }
+            .nav-button {
+                font-size: 0.8rem;
+                padding: 0.5rem 1rem;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-100 font-sans">
     <div class="container">
         <h1 class="text-2xl font-semibold text-gray-800 mb-4">Área Super ADM</h1>
-        <p class="text-gray-600 mb-6">Bem vindo Adm {{ user.username }}!</p>
+        <p class="text-gray-600 mb-6">Bem-vindo(a), Adm {{ user.username }}!</p>
 
         <div class="button-group">
-            <button class="nav-button cadastrar-usuario">Cadastrar Usuário</button>
-            <button class="nav-button login">Login</button>
-            <button class="nav-button pesquisar">Pesquisar</button>
-            <button class="nav-button cadastro-edificio">Cadastrar Edifício</button>
-            <button class="nav-button lista">Lista</button>
-            <button class="nav-button area-adm1">Área Adm1</button>
-            <form method="post" action="{% url 'logout' %}">
-                {% csrf_token %}
-                <button type="submit" class="nav-button logout-button">Logout</button>
-            </form>
-        </div>
-    </div>
+            <a href="/auth/cadastro/" class="nav-button cadastrar-usuario" aria-label="Cadastrar novo usuário">Cadastrar Usuário</a>
+            <a href="/auth/login/" class="nav-button login" aria-label="Ir para login">Login</a>
+            <a href="/pesquisa/" class="nav-button pesquisar" aria-label="Ir para pesquisa">Pesquisar</a>
+            <a href="/" class="nav-button cadastro-edificio" aria-label="Ir para cadastro de edifício">Cadastrar Edifício</a>
+            <a href="/edificios/" class="nav-button lista" aria-label="Ver lista de edifícios">Lista</a>
+            <a href="/admin/" class="nav-button area-adm1" aria-label="Ir para área administrativa do Django">Área Adm1</a>
+            <a href="{% url 'chat_admin' %}" class="nav-button chat-adm" aria-label="Ir para o chat administrativo">
 
-    <script>
-        const botoes = document.querySelectorAll('.nav-button:not(.logout-button)'); // Exclui o botão de logout
-    
-        botoes.forEach(botao => {
-            botao.addEventListener('click', () => {
-                let destino = '';
-                if (botao.classList.contains('cadastrar-usuario')) {
-                    destino = '/auth/cadastro/';
-                } else if (botao.classList.contains('login')) {
-                    destino = '/auth/login/';
-                } else if (botao.classList.contains('pesquisar')) {
-                    destino = '/pesquisa/';
-                } else if (botao.classList.contains('cadastro-edificio')) {
-                    destino = '/';
-                } else if (botao.classList.contains('lista')) {
-                    destino = '/edificios/';
-                } else if (botao.classList.contains('area-adm1')) {
-                    destino = '/admin/';
-                }
-                window.location.href = destino;
-            });
-        });
-    </script>
-    
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h6m-6 4h4m1 8a10 10 0 110-20 10 10 0 010 20z" />
+                </svg>
+                Chat ADM
+            </a>
+        </div>
+
+        <form method="post" action="{% url 'logout' %}" class="mt-4">
+            {% csrf_token %}
+            <button type="submit" class="nav-button logout-button" aria-label="Fazer logout">Logout</button>
+        </form>
+    </div>
 </body>
 </html>

@@ -4,10 +4,11 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-4">
     <div class="container-fluid">
         <a class="navbar-brand fw-bold">Resultados da Busca</a>
-        <form class="d-flex" method="post" action="{% url 'pesquisa' %}">
+
+        <form class="d-flex me-auto" method="post" action="{% url 'pesquisa' %}">
             {% csrf_token %}
             <input class="form-control me-2" type="search" name="search" placeholder="Digite o nome" aria-label="Pesquisar">
-            <button class="btn btn-outline-success" type="submit">Pesquisar</button>
+            <button class="btn btn-outline-success me-2" type="submit">Pesquisar</button>
         </form>
     </div>
 </nav>
